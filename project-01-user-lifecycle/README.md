@@ -95,3 +95,48 @@ classic security gap.
 from CSV, a Graph PowerShell script for location changes, and immediate disablement for
 leavers, which I verified with a sign-in test returning error 50057. When Graph rejected
 empty fields, I fixed the script and re-ran it to 7 out of 7 successes."
+
+## Part 2: Automated licensing with a dynamic group
+
+**Problem:** Manually assigning licenses to joiners and removing them from leavers is slow, error-prone, and wastes paid licenses on people who have left.
+
+**What I configured:**
+1. Created a dynamic security group `CLD-Lic-E5-Dynamic` with the rule
+   `(user.displayName -startsWith "CLD") -and (user.accountEnabled -eq true)`
+   so only enabled lab users are members.
+2. Validated the rule before saving: an active user evaluated **in**, the disabled leaver evaluated **out**.
+3. Assigned Microsoft 365 E5 to the group in the Microsoft 365 admin center (group license assignment is no longer editable from the Entra group page).
+
+**Evidence**
+
+**Dynamic group:** 9 members, rule processing succeeded (disabled leaver excluded)
+
+![Dynamic group members](screenshots/SC300-Licensing-06-dynamic-members-no-marcus.png)
+
+**Rule validation:** active user in, disabled leaver out
+
+![Rule validation](screenshots/SC300-Licensing-04-validate-rule-marcus-false-james-true.png)
+
+**License assigned to the group:** 9/25 in use
+
+![Group license assigned](screenshots/SC300-Licensing-07-group-license-assigned-9-of-25.png)
+
+**Member license inherited from the group**
+
+![Inherited license](screenshots/SC300-Licensing-09-james-license-inherited-from-group.png)
+
+**Direct + group assignment on one user consumes a single license**
+
+![Direct and inherited](screenshots/SC300-Licensing-10-cldadmin01-direct-and-inherited.png)
+
+**Disabled leaver:** no group membership, no license
+
+![Leaver no license](screenshots/SC300-Licensing-11-marcus-leaver-no-license.png)
+
+**What I learned**
+- A user with the same license assigned directly and through a group uses only **one** license.
+- An inherited license can't be removed from the user directly; remove the user from the group (or, for a dynamic group, change the attribute the rule uses).
+- Safe migration from direct to group licensing: assign the group first, then remove the direct assignment, so there is no service gap.
+- Group licensing errors (missing usage location, not enough licenses, conflicting service plans) show under **Errors & Issues** in the Microsoft 365 admin center.
+
+**Control mapping:** NIST SP 800-53 **AC-2(1)** (automated account management); ISO/IEC 27001:2022 Annex A **5.18** (access rights). Licenses are reclaimed automatically when access is removed.
