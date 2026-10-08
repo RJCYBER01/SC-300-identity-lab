@@ -90,11 +90,7 @@ classic security gap.
 | Provisioning and removal of access rights | ISO/IEC 27001:2022 Annex A **5.18** |
 | Timely removal of access for leavers | SOX IT general controls (user access) |
 
-## Interview talking point
-"I automated the joiner-mover-leaver lifecycle in Microsoft Entra ID: bulk onboarding
-from CSV, a Graph PowerShell script for location changes, and immediate disablement for
-leavers, which I verified with a sign-in test returning error 50057. When Graph rejected
-empty fields, I fixed the script and re-ran it to 7 out of 7 successes."
+"I automated the joiner-mover-leaver lifecycle in Microsoft Entra ID: bulk onboarding from CSV, a Graph PowerShell script for location changes, and immediate disablement for leavers, which I verified with a sign-in test returning error 50057. When Graph rejected empty fields, I fixed the script and re-ran it to 7 out of 7 successes. Then I made licensing follow account status: a dynamic group holds only enabled users and carries the Microsoft 365 E5 license, so joiners are licensed automatically and a disabled leaver drops out of the group and frees the license, with no manual steps."
 
 ## Part 2: Automated licensing with a dynamic group
 
