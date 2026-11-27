@@ -21,10 +21,12 @@ along the way.
 | # | Project | Skills | Status |
 |---|---------|--------|--------|
 | 1 | [User Lifecycle — Joiner / Mover / Leaver](project-01-user-lifecycle/) | Bulk CSV import, Microsoft Graph PowerShell, account disable + sign-in verification | Complete |
-| 2 | Conditional Access + MFA | CA policies, MFA, Identity Secure Score before/after | Planned |
-| 3 | Privileged Identity Management | Just-in-time admin access, permanent → eligible roles | Planned |
+| 2 | Conditional Access + MFA | 4 CA policies, MFA, Identity Secure Score 68.42% → 80.00% | Lab done · write-up in progress |
+| 3 | Privileged Identity Management | PIM for Azure resources, custom RBAC role (Entra roles next) | Partly done · write-up in progress |
 | 4 | Hybrid Identity with Entra Cloud Sync | On-prem AD → Entra ID sync, UPN suffix planning | Planned |
 | 5 | Access Reviews & Entitlement Management | Identity governance, recurring access reviews | Planned |
+| 6 | Zero Trust Identity Baseline | Break-glass accounts, authentication strengths, risk-based CA, PIM for Entra roles, Administrative Units | Planned |
+| 7 | Azure Monitoring & Identities | Managed identities, Log Analytics + KQL, dynamic group licensing | Lab done · write-up in progress |
 
 ## Security note
 All screenshots are masked (tenant IDs, object IDs, UPNs, IPs, personal emails).
